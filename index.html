@@ -7,72 +7,99 @@
 <meta name="description" content="Jad builds booking pages, class timetables, QR menus and reservation pages for local businesses in Dubai. Working preview first, live within a week.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Hanken+Grotesk:wght@400;600&family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--teal:#0B4F4A;--deep:#073633;--sand:#F3EAD7;--sun:#FFC53D;--ink:#10201E;--paper:#FAFAF7;--line:#D5DBD6;--muted:#52635F;
-  --display:"Bricolage Grotesque","Tajawal",system-ui,sans-serif;--body:"Hanken Grotesk","Tajawal",system-ui,sans-serif}
+:root{--paper:#F6F5F1;--tint:#ECEAE3;--ink:#15171C;--mu:#575B66;--ac:#2440C8;--line:#D9D7CF;--f:"Geist","IBM Plex Sans Arabic",system-ui,sans-serif}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.55}
-[dir=rtl] body{line-height:1.8}
-.wrap{max-width:68rem;margin:0 auto;padding:0 1.25rem}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 1.0625rem/1.6 var(--f);-webkit-font-smoothing:antialiased}
+[dir=rtl] body{line-height:1.85}
+.wrap{max-width:70rem;margin:0 auto;padding:0 1.25rem}
 a{color:inherit}
-:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
-.top{background:var(--deep);color:var(--sand)}
-.top .wrap{display:flex;justify-content:space-between;align-items:center;padding-block:.7rem}
-.name{font-family:var(--display);font-weight:800;font-size:1.25rem;letter-spacing:-.01em}
-.lang{font:inherit;font-size:.95rem;color:var(--sand);background:none;border:1.5px solid rgba(243,234,215,.5);border-radius:999px;padding:.3rem .9rem;cursor:pointer}
-.hero{background:var(--teal);color:var(--sand);padding:3rem 0 3.5rem;overflow:hidden}
-.hero .wrap{display:grid;gap:2.5rem;align-items:center}
-h1{font-family:var(--display);font-weight:800;font-size:clamp(2.5rem,9vw,4.75rem);line-height:.98;letter-spacing:-.03em;margin:0 0 1.25rem;text-wrap:balance}
-[dir=rtl] h1{line-height:1.25;letter-spacing:0}
-.lead{font-size:1.2rem;max-width:34rem;margin:0 0 1.75rem}
-.btn{display:inline-block;background:var(--sun);color:var(--ink);font-weight:600;text-decoration:none;padding:.9rem 1.4rem;border-radius:.6rem}
-.btn:hover{background:#ffd266}
-.phone{justify-self:center;width:min(100%,21rem)}
-.phone .frame{border:.6rem solid var(--ink);border-radius:2.4rem;overflow:hidden;background:#fff;aspect-ratio:9/17;box-shadow:0 1.5rem 3rem rgba(4,30,28,.45)}
-.phone iframe{width:100%;height:100%;border:0;display:block}
-.phone p{margin:.9rem 0 0;font-size:.95rem;text-align:center;color:rgba(243,234,215,.85)}
-section{padding:3.5rem 0}
-h2{font-family:var(--display);font-weight:800;font-size:clamp(1.9rem,5vw,2.75rem);line-height:1.05;letter-spacing:-.02em;margin:0 0 1.75rem}
-[dir=rtl] h2{line-height:1.3;letter-spacing:0}
-.tools{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink)}
-.tools li{display:grid;gap:.4rem 2rem;padding:1.5rem 0;border-bottom:1px solid var(--line)}
-.tools h3{font-family:var(--display);font-weight:800;font-size:1.5rem;margin:0;letter-spacing:-.01em}
-.tools p{margin:0;color:var(--muted);max-width:36rem}
-.tools a{font-weight:600;text-underline-offset:.25em;align-self:center;white-space:nowrap}
-.steps{background:var(--sand)}
-.steps ol{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:1.5rem}
-.steps li{counter-increment:s;display:grid;grid-template-columns:3.2rem 1fr;align-items:start;font-size:1.15rem;max-width:40rem}
-.steps li::before{content:counter(s);font-family:var(--display);font-weight:800;font-size:2.6rem;line-height:.9;color:var(--teal)}
-.price{display:grid;gap:2rem}
-.price div{border-top:2px solid var(--ink);padding-top:1rem}
-.amt{font-family:var(--display);font-weight:800;font-size:clamp(2.2rem,7vw,3.5rem);line-height:1;letter-spacing:-.02em;margin:0 0 .5rem}
-.price p:last-child{margin:0;color:var(--muted);max-width:26rem}
-.talk{background:var(--teal);color:var(--sand)}
-.talk p{font-size:1.2rem;max-width:34rem;margin:0}
-footer{background:var(--deep);color:rgba(243,234,215,.8);padding:1.25rem 0;font-size:.95rem}
-@media (min-width:52rem){
-  .hero{padding:4.5rem 0 5rem}
-  .hero .wrap{grid-template-columns:1.25fr .75fr}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--ac);outline-offset:3px}
+.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:1rem;height:4.25rem}
+.name{font-weight:600;font-size:1.25rem;letter-spacing:-.02em}
+.top div{display:flex;align-items:center;gap:.6rem}
+.lang{background:none;border:1px solid var(--line);border-radius:999px;padding:.45rem 1rem;cursor:pointer;min-height:2.75rem;font-size:.9375rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;background:var(--ac);color:#fff;font-weight:500;text-decoration:none;padding:.8rem 1.5rem;border-radius:999px;min-height:3rem;white-space:nowrap;transition:transform .15s ease,background .15s ease}
+.btn:hover{background:#1c33a6}
+.btn:active{transform:scale(.98)}
+.btn.sm{padding:.45rem 1.1rem;min-height:2.75rem;font-size:.9375rem}
+.hero{padding:2rem 0 3.5rem}
+.hero .wrap{display:grid;gap:2.75rem}
+h1{font-weight:600;font-size:clamp(2.4rem,7.2vw,4.4rem);line-height:1.02;letter-spacing:-.04em;margin:0 0 1.25rem;text-wrap:balance}
+[dir=rtl] h1,[dir=rtl] h2,[dir=rtl] .amt{letter-spacing:0;line-height:1.3}
+.lead{font-size:1.1875rem;color:var(--mu);max-width:33rem;margin:0 0 1.75rem}
+.acts{display:flex;flex-wrap:wrap;align-items:center;gap:1rem 1.75rem}
+.acts a.txt{font-weight:500;text-underline-offset:.3em}
+.try{min-width:0}
+.pick{margin:0 0 .75rem;font-weight:500}
+.trades{display:flex;gap:.5rem;overflow-x:auto;scrollbar-width:none;padding:2px 2px 1rem;margin-inline:-2px}
+.trades button{flex:none;background:none;border:1px solid var(--line);border-radius:999px;padding:.5rem 1rem;min-height:2.75rem;cursor:pointer;font-size:.9375rem;transition:background .15s,border-color .15s}
+.trades button:hover{border-color:var(--ink)}
+.trades button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.phone{width:19.5rem;max-width:100%;margin-inline:auto}
+.frame{width:19.5rem;height:38rem;border-radius:2.4rem;overflow:hidden;background:#fff;box-shadow:0 0 0 .55rem var(--ink),0 2rem 3.5rem -1rem rgba(21,23,28,.35);margin:.55rem auto 0}
+.frame iframe{width:390px;height:760px;border:0;display:block;transform:scale(.8);transform-origin:0 0}
+[dir=rtl] .frame iframe{transform-origin:100% 0}
+.cap{margin:1.5rem 0 0;font-size:.9375rem;text-align:center;color:var(--mu)}
+section{padding:4rem 0}
+h2{font-weight:600;font-size:clamp(1.8rem,4.6vw,2.6rem);line-height:1.08;letter-spacing:-.03em;margin:0 0 2rem}
+.tools{list-style:none;margin:0;padding:0}
+.tools li{display:grid;gap:.5rem 2rem;padding:1.6rem 0;border-top:1px solid var(--line)}
+.tools h3{font-weight:600;font-size:1.3rem;margin:0;letter-spacing:-.02em}
+.tools p{margin:0;color:var(--mu);max-width:36rem}
+.tools a{font-weight:500;color:var(--ac);text-underline-offset:.3em;align-self:center;white-space:nowrap}
+.steps ol{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:2rem}
+.steps li{counter-increment:s;border-top:2px solid var(--ink);padding-top:1rem;font-size:1.125rem;max-width:26rem}
+.steps li::before{content:counter(s);display:block;font-weight:600;font-size:2.5rem;line-height:1;letter-spacing:-.04em;color:var(--ac);margin-bottom:.75rem}
+.cost{background:var(--tint)}
+.price{display:grid;gap:2.5rem}
+.amt{font-weight:600;font-size:clamp(2.4rem,7vw,3.75rem);line-height:1;letter-spacing:-.04em;margin:0 0 .75rem}
+.price p:last-child{margin:0;color:var(--mu);max-width:26rem}
+.talk p{font-size:1.1875rem;color:var(--mu);max-width:34rem;margin:0 0 1.75rem}
+.talk .mail{display:block;margin-top:1.25rem;font-size:.9375rem;color:var(--mu)}
+footer{border-top:1px solid var(--line);color:var(--mu);padding:1.5rem 0;font-size:.9375rem}
+@media (min-width:56rem){
+  .wrap{padding:0 2.5rem}
+  .hero{padding:3.5rem 0 5.5rem}
+  .hero .wrap{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);align-items:center;gap:4rem}
+  .trades{flex-wrap:wrap;overflow:visible;justify-content:center}
+  .pick{text-align:center}
   .tools li{grid-template-columns:15rem 1fr auto}
+  .steps ol{grid-template-columns:repeat(3,1fr);gap:3rem}
   .price{grid-template-columns:1fr 1fr}
+  section{padding:5.5rem 0}
 }
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn,.trades button{transition:none}}
 </style>
 </head>
 <body>
-<div class="top"><div class="wrap"><span class="name" data-i="name">Jad</span><button class="lang" id="lang" type="button">العربية</button></div></div>
+<div class="top"><div class="wrap"><span class="name" data-i="name">Jad</span><div><button class="lang" id="lang" type="button">العربية</button><a class="btn sm" href="mailto:hello@jadwritesco.com" data-i="cta">Email Jad</a></div></div></div>
 
 <header class="hero"><div class="wrap">
   <div>
-    <h1 data-i="h1">Booking pages and menus for Dubai shops, live in a week.</h1>
-    <p class="lead" data-i="lead">I'm Jad. I build small, fast pages that take bookings, fill classes and show your menu. You get a working preview with your own details before you pay.</p>
-    <a class="btn" href="#samples" data-i="cta">Try a live sample</a>
+    <h1 data-i="h1">Booking pages and menus for Dubai shops.</h1>
+    <p class="lead" data-i="lead">I'm Jad. I build you a working preview with your own details first. You pay only if you want it live.</p>
+    <div class="acts"><a class="btn" href="mailto:hello@jadwritesco.com" data-i="cta">Email Jad</a><a class="txt" href="#cost" data-i="costl">See what it costs</a></div>
   </div>
-  <div class="phone">
-    <div class="frame"><iframe src="sample-gym/" title="Working sample of a class booking page" loading="lazy"></iframe></div>
-    <p data-i="cap">This is a working sample. Tap around.</p>
+  <div class="try" id="try">
+    <p class="pick" data-i="pick">Pick your kind of business</p>
+    <div class="trades" id="trades" role="group" aria-label="Kind of business">
+      <button type="button" data-s="sample-gym" data-i="t1" aria-pressed="true">Gym</button>
+      <button type="button" data-s="sample-yoga" data-i="t2" aria-pressed="false">Yoga</button>
+      <button type="button" data-s="sample-salon" data-i="t3" aria-pressed="false">Salon</button>
+      <button type="button" data-s="sample-detailing" data-i="t4" aria-pressed="false">Car care</button>
+      <button type="button" data-s="sample-cafe" data-i="t5" aria-pressed="false">Cafe</button>
+      <button type="button" data-s="sample-clinic" data-i="t6" aria-pressed="false">Clinic</button>
+      <button type="button" data-s="sample-kids" data-i="t7" aria-pressed="false">Kids classes</button>
+      <button type="button" data-s="sample-repairs" data-i="t8" aria-pressed="false">Home repairs</button>
+    </div>
+    <div class="phone">
+      <div class="frame"><iframe id="demo" src="sample-gym/" title="Working sample page" loading="lazy"></iframe></div>
+      <p class="cap" data-i="cap">A working sample. Tap around.</p>
+    </div>
   </div>
 </div></header>
 
@@ -81,7 +108,7 @@ footer{background:var(--deep);color:rgba(243,234,215,.8);padding:1.25rem 0;font-
   <h2 data-i="s1">Three things I build</h2>
   <ul class="tools">
     <li><h3 data-i="a1">Class booking</h3><p data-i="a2">For gyms, studios and academies. Members see the week, pick a class and book a spot. You stop answering "what time is the class" on WhatsApp.</p><a href="sample-gym/" data-i="open">Open the sample</a></li>
-    <li><h3 data-i="b1">Appointment booking</h3><p data-i="b2">For salons, barbers, detailers and clinics. Customers pick a service, a day and a time. You get the booking with their name and number.</p><a href="sample-detailing/" data-i="open">Open the sample</a></li>
+    <li><h3 data-i="b1">Appointment booking</h3><p data-i="b2">For salons, barbers, detailers and clinics. Customers pick a service, a day and a time. You get the booking with their name and number.</p><a href="sample-salon/" data-i="open">Open the sample</a></li>
     <li><h3 data-i="c1">Menu and reservations</h3><p data-i="c2">For cafes and restaurants. A menu that opens from a QR code on the table, and a form that takes table requests.</p><a href="sample-cafe/" data-i="open">Open the sample</a></li>
   </ul>
 </div></section>
@@ -95,7 +122,7 @@ footer{background:var(--deep);color:rgba(243,234,215,.8);padding:1.25rem 0;font-
   </ol>
 </div></section>
 
-<section><div class="wrap">
+<section class="cost" id="cost"><div class="wrap">
   <h2 data-i="s3">What it costs</h2>
   <div class="price">
     <div><p class="amt" data-i="p1">AED 1,500</p><p data-i="p1d">Once, for the page and its booking, menu or reservation tool. English and Arabic included.</p></div>
@@ -105,7 +132,9 @@ footer{background:var(--deep);color:rgba(243,234,215,.8);padding:1.25rem 0;font-
 
 <section class="talk"><div class="wrap">
   <h2 data-i="s4">Talk to me</h2>
-  <p data-i="talk">If I sent you a message, reply to it. That reaches me fastest. Or email me at <a href="mailto:hello@jadwritesco.com">hello@jadwritesco.com</a></p>
+  <p data-i="talk">If I sent you a message, reply to it. Or email me and tell me what your business does.</p>
+  <a class="btn" href="mailto:hello@jadwritesco.com" data-i="cta">Email Jad</a>
+  <span class="mail">hello@jadwritesco.com</span>
 </div></section>
 </main>
 
@@ -113,9 +142,11 @@ footer{background:var(--deep);color:rgba(243,234,215,.8);padding:1.25rem 0;font-
 
 <script>
 (function(){
-var AR={name:'جاد',h1:'صفحات حجز وقوائم طعام لمحلات دبي، جاهزة خلال أسبوع.',
-lead:'أنا جاد. أبني صفحات صغيرة وسريعة تستقبل الحجوزات وتملأ الحصص وتعرض قائمتكم. تشوفون نسخة تجريبية شغّالة بتفاصيلكم قبل ما تدفعون.',
-cta:'جرّب نموذج حي',cap:'هذا نموذج شغّال. جرّبه.',s1:'ثلاثة أشياء أبنيها',
+var AR={name:'جاد',h1:'صفحات حجز وقوائم طعام لمحلات دبي.',
+lead:'أنا جاد. أجهز لكم نسخة تجريبية شغّالة بتفاصيلكم أولاً. تدفعون فقط إذا حبيتوا تنطلق.',
+cta:'راسلوا جاد',costl:'شوفوا التكلفة',pick:'اختاروا نوع نشاطكم',cap:'نموذج شغّال. جرّبوه.',
+t1:'نادي رياضي',t2:'يوغا',t3:'صالون',t4:'عناية بالسيارات',t5:'كافيه',t6:'عيادة',t7:'حصص أطفال',t8:'صيانة منزلية',
+s1:'ثلاثة أشياء أبنيها',
 a1:'حجز الحصص',a2:'للنوادي والاستوديوهات والأكاديميات. العضو يشوف جدول الأسبوع، يختار الحصة ويحجز مكانه.',
 b1:'حجز المواعيد',b2:'للصالونات والحلاقين ومراكز تلميع السيارات والعيادات. العميل يختار الخدمة واليوم والوقت، ويوصلكم الحجز باسمه ورقمه.',
 c1:'القائمة والحجوزات',c2:'للكافيهات والمطاعم. قائمة تفتح من رمز QR على الطاولة، ونموذج لطلب حجز طاولة.',
@@ -123,12 +154,15 @@ open:'افتح النموذج',s2:'كيف نشتغل',st1:'أجهز نسخة ت�
 st2:'تفتحونها على الجوال وتقولون لي شو أغيّر.',st3:'تنطلق على نطاقكم خلال أسبوع.',
 s3:'التكلفة',p1:'1,500 درهم',p1d:'مرة واحدة، للصفحة وأداة الحجز أو القائمة. العربية والإنجليزية ضمن السعر.',
 p2:'150 درهم شهرياً',p2d:'اختياري. يشمل الاستضافة والتعديلات والإصلاحات.',
-s4:'تواصلوا معي',talk:'إذا وصلتكم رسالة مني، ردّوا عليها. هذا أسرع طريق. أو راسلوني على hello@jadwritesco.com',foot:'جاد. دبي، الإمارات.'};
-var EN={},els=document.querySelectorAll('[data-i]'),ar=false,btn=document.getElementById('lang');
+s4:'تواصلوا معي',talk:'إذا وصلتكم رسالة مني، ردّوا عليها. أو راسلوني وقولوا لي شو نشاطكم.',foot:'جاد. دبي، الإمارات.'};
+var EN={},els=document.querySelectorAll('[data-i]'),ar=false,btn=document.getElementById('lang'),demo=document.getElementById('demo'),cur='sample-gym';
 els.forEach(function(e){EN[e.dataset.i]=e.textContent});
+function show(){demo.src=cur+'/'+(ar?'?lang=ar':'')}
+document.getElementById('trades').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;cur=b.dataset.s;
+  [].forEach.call(this.children,function(c){c.setAttribute('aria-pressed',c===b)});show()});
 btn.addEventListener('click',function(){ar=!ar;var d=ar?AR:EN;
   els.forEach(function(e){e.textContent=d[e.dataset.i]});
-  document.documentElement.lang=ar?'ar':'en';document.documentElement.dir=ar?'rtl':'ltr';btn.textContent=ar?'English':'العربية';});
+  document.documentElement.lang=ar?'ar':'en';document.documentElement.dir=ar?'rtl':'ltr';btn.textContent=ar?'English':'العربية';show()});
 })();
 </script>
 </body>
