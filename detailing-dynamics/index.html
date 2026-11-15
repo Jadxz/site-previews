@@ -8,90 +8,186 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <style>
-:root{--bg:#F4F4F1;--sf:#fff;--ink:#151515;--mu:#5d5d5d;--ac:#A3271F;--on:#fff;--hi:#1F3A5F;--display:"Bricolage Grotesque",system-ui,sans-serif;--body:"Hanken Grotesk",system-ui,sans-serif;--r:14px;--line:color-mix(in srgb,var(--ink) 16%,transparent)}
+:root{--bg:#F3F5F9;--sf:#fff;--ink:#0F1E3D;--mu:#56617A;--ac:#1E40AF;--on:#fff;--hi:#EA580C;--display:system-ui,sans-serif;--body:system-ui,sans-serif;--r:10px;--rb:10px;--hw:700;--line:color-mix(in srgb,var(--ink) 14%,transparent)}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 1rem/1.55 var(--body);-webkit-font-smoothing:antialiased;padding-bottom:6rem}
-[dir=rtl] body{font-family:"Tajawal",var(--body)}
-[dir=rtl] h1,[dir=rtl] h2,[dir=rtl] .big{font-family:"Tajawal",var(--display);letter-spacing:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:4.5rem}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1rem/1.6 var(--body);-webkit-font-smoothing:antialiased}
+body.t-book,body.t-menu{padding-bottom:5.5rem}
 button,input,textarea{font:inherit;color:inherit}
-:focus-visible{outline:3px solid var(--hi);outline-offset:2px}
-.wrap{max-width:44rem;margin-inline:auto;padding-inline:1.25rem}
-.ribbon{display:flex;gap:.75rem;align-items:center;justify-content:space-between;padding:.5rem 1.25rem;background:var(--ink);color:var(--bg);font-size:.8125rem;line-height:1.35}
-.ribbon button{flex:none;background:none;border:1px solid color-mix(in srgb,var(--bg) 45%,transparent);color:inherit;border-radius:99px;padding:.3rem .8rem;cursor:pointer}
-.hero{background:var(--ac);color:var(--on);padding:3.25rem 0 2.5rem}
-h1{font:800 clamp(2.75rem,13vw,6rem)/.92 var(--display);letter-spacing:-.02em;margin:0;text-wrap:balance;overflow-wrap:anywhere}
-.hero p{font-size:1.125rem;max-width:32ch;margin:1.1rem 0 0}
-.facts{background:var(--ink);color:var(--bg)}
-.facts .wrap{display:flex;flex-wrap:wrap;gap:.35rem 2rem;padding-block:.9rem;font-size:.9375rem}
-.facts b{font-weight:700}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.wrap{max-width:68rem;margin-inline:auto;padding-inline:1.25rem}
+.ribbon{display:flex;gap:.75rem;align-items:center;justify-content:space-between;padding:.45rem 1.25rem;background:var(--ink);color:var(--bg);font-size:.8125rem;line-height:1.35}
+.ribbon button{flex:none;background:none;border:1px solid color-mix(in srgb,var(--bg) 40%,transparent);color:inherit;border-radius:99px;padding:.3rem .85rem;cursor:pointer;min-height:2rem}
+.hero{padding:3rem 0 2.75rem}
+.loc{margin:0 0 .9rem;font-size:.9375rem;font-weight:500;color:var(--mu)}
+h1{font:var(--hw) clamp(2.5rem,10vw,5rem)/1 var(--display);letter-spacing:-.02em;margin:0;text-wrap:balance;overflow-wrap:anywhere;max-width:16ch}
+.tag{font-size:1.125rem;line-height:1.5;max-width:36ch;margin:1.1rem 0 0;color:var(--mu)}
+.cta{display:flex;flex-wrap:wrap;align-items:center;gap:.9rem 1.5rem;margin-top:1.75rem}
+.hrs{font-size:.9375rem;color:var(--mu)}
+.hrs b{color:var(--ink);font-weight:600}
+.cols{display:grid;grid-template-columns:minmax(0,1fr);gap:0 4.5rem}
+.cols>*{min-width:0}
+.t-menu .main>*{min-width:0}
 .sec{padding-top:2.75rem}
-h2{font:700 clamp(1.6rem,6vw,2.25rem)/1.05 var(--display);letter-spacing:-.01em;margin:0 0 1rem}
-.note{color:var(--mu);font-size:.875rem;margin:1rem 0 0}
-.cats{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+h2{font:var(--hw) clamp(1.5rem,5vw,2rem)/1.12 var(--display);letter-spacing:-.01em;margin:0 0 1.1rem}
+.panel{background:var(--sf);border:1px solid var(--line);border-radius:var(--r);padding:1.5rem;margin-top:2.75rem}
+.panel h2{font-size:1.3rem}
+.note{color:var(--mu);font-size:.875rem;margin:1rem 0 0;max-width:52ch}
+.cats{position:sticky;top:0;z-index:5;background:var(--bg);border-block:1px solid var(--line)}
 .cats .wrap{display:flex;gap:.5rem;overflow-x:auto;padding-block:.6rem;scrollbar-width:none}
-.cats a{flex:none;color:inherit;text-decoration:none;padding:.4rem .9rem;border:1px solid var(--line);border-radius:99px;font-size:.9375rem}
+.cats a{flex:none;color:inherit;text-decoration:none;padding:.45rem 1rem;border:1px solid var(--line);border-radius:min(var(--rb),99px);font-size:.9375rem;min-height:2.5rem;display:inline-flex;align-items:center}
 .menu,.rows{list-style:none;margin:0;padding:0}
 .menu li{padding:.7rem 0}
 .row{display:flex;align-items:baseline;gap:.6rem}
-.nm{font-weight:700;font-size:1.0625rem}
-.dots{flex:1;min-width:1.5rem;border-bottom:2px dotted color-mix(in srgb,var(--ink) 38%,transparent);transform:translateY(-.3em)}
+.nm{font-weight:600;font-size:1.0625rem}
+.dots{flex:1;min-width:1.5rem;border-bottom:1px dotted color-mix(in srgb,var(--ink) 45%,transparent);transform:translateY(-.3em)}
 .pr{font-variant-numeric:tabular-nums;font-weight:500;white-space:nowrap}
 .ds{margin:.15rem 0 0;color:var(--mu);font-size:.9375rem;max-width:46ch}
-.tent{margin-top:1.25rem;display:grid;grid-template-columns:auto 1fr;gap:1.25rem;align-items:center;background:var(--sf);border-radius:var(--r);padding:1.25rem;border:1px solid var(--line)}
-.qr{width:8.25rem;aspect-ratio:1;background:#fff;padding:.55rem;border-radius:10px}
+.tent{display:grid;grid-template-columns:auto 1fr;gap:1.25rem;align-items:center;background:var(--sf);border-radius:var(--r);padding:1.25rem;border:1px solid var(--line)}
+.qr{width:7.5rem;aspect-ratio:1;background:#fff;padding:.5rem;border-radius:max(4px,min(var(--r),10px))}
 .qr svg{display:block;width:100%;height:100%}
-.tent .big{font:700 1.5rem/1.1 var(--display);margin:0 0 .35rem}
+.tent .big{font:var(--hw) 1.35rem/1.15 var(--display);margin:0 0 .35rem}
 .tent p{margin:0;color:var(--mu);font-size:.9375rem}
-.card{background:var(--sf);border:1px solid var(--line);border-radius:var(--r);padding:1.25rem}
-.lbl{display:block;font-weight:700;margin:1.15rem 0 .5rem}
+.card{background:var(--sf);border:1px solid var(--line);border-radius:var(--r);padding:1.4rem 1.25rem}
+.lbl{display:block;font-weight:600;margin:1.25rem 0 .55rem}
 .lbl:first-child{margin-top:0}
-.chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(4.6rem,1fr));gap:.5rem}
-.chips.days{grid-template-columns:repeat(7,minmax(3.6rem,1fr));overflow-x:auto;scrollbar-width:none}
-.chip{background:transparent;border:1.5px solid var(--line);border-radius:12px;padding:.6rem .3rem;cursor:pointer;text-align:center;line-height:1.2;min-height:2.9rem}
+.chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(4.7rem,1fr));gap:.5rem}
+.chips.days{display:flex;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.chips.days .chip{flex:1 0 3.9rem}
+.chip{background:transparent;border:1px solid var(--line);border-radius:min(var(--rb),14px);padding:.6rem .3rem;cursor:pointer;text-align:center;line-height:1.25;min-height:2.9rem;transition:background .15s,border-color .15s}
+.chip:hover:not(:disabled){border-color:color-mix(in srgb,var(--ink) 45%,transparent)}
 .chip small{display:block;color:var(--mu);font-size:.75rem}
 .chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .chip[aria-pressed=true] small{color:inherit;opacity:.75}
 .chip:disabled{opacity:.35;text-decoration:line-through;cursor:not-allowed}
 .step{display:inline-flex;align-items:center;gap:1rem}
-.step button{width:2.9rem;height:2.9rem;border-radius:50%;border:1.5px solid var(--line);background:transparent;font-size:1.35rem;cursor:pointer}
-.step output{font:700 1.5rem var(--display);min-width:2ch;text-align:center}
-.in{width:100%;background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:.8rem .9rem}
-.err{color:var(--ac);font-size:.875rem;font-weight:700;margin:.35rem 0 0;min-height:0}
-.petrol .err,.gloss .err{color:var(--hi)}
-.btn{display:inline-flex;justify-content:center;align-items:center;background:var(--ac);color:var(--on);border:0;border-radius:12px;padding:.95rem 1.4rem;font-weight:700;cursor:pointer;text-decoration:none;min-height:3.1rem}
+.step button{width:2.9rem;height:2.9rem;border-radius:min(var(--rb),99px);border:1px solid var(--line);background:transparent;font-size:1.35rem;cursor:pointer}
+.step output{font:var(--hw) 1.5rem var(--display);min-width:2ch;text-align:center}
+.in{width:100%;background:var(--bg);border:1px solid color-mix(in srgb,var(--ink) 26%,transparent);border-radius:min(var(--rb),12px);padding:.8rem .9rem;min-height:3rem}
+.in:focus-visible{outline-offset:1px}
+.err{color:var(--ac);font-size:.875rem;font-weight:600;margin:.35rem 0 0}
+.btn{display:inline-flex;justify-content:center;align-items:center;background:var(--ac);color:var(--on);border:0;border-radius:var(--rb);padding:.9rem 1.6rem;font:600 1rem var(--body);cursor:pointer;text-decoration:none;min-height:3rem;transition:transform .15s ease,filter .15s ease}
+.btn:hover{filter:brightness(1.08)}
+.btn:active{transform:scale(.98)}
 .btn.wide{width:100%;margin-top:1.4rem}
-.btn.ghost{background:transparent;color:inherit;border:1.5px solid var(--line)}
-.ticket{background:var(--sf);border-radius:var(--r);border:1px solid var(--line);border-top:8px solid var(--hi);padding:1.5rem 1.25rem}
-.ticket .k{font-weight:700;margin:0;color:var(--mu)}
-.ticket .big{font:800 clamp(1.9rem,8vw,2.6rem)/1 var(--display);margin:.4rem 0 .5rem}
+.btn.ghost{background:transparent;color:inherit;border:1px solid var(--line)}
+.ticket{background:var(--sf);border-radius:var(--r);border:1px solid var(--line);border-top:4px solid var(--ac);padding:1.5rem 1.25rem}
+.ticket .k{font-weight:600;margin:0;color:var(--mu)}
+.ticket .big{font:var(--hw) clamp(1.7rem,7vw,2.25rem)/1.1 var(--display);margin:.4rem 0 .5rem}
 .ticket p{margin:.2rem 0}
 .ticket .live{margin:1rem 0 1.1rem;padding-top:1rem;border-top:1px dashed var(--line);color:var(--mu);font-size:.9375rem}
-.rows li{display:grid;grid-template-columns:5.2rem 1fr auto;gap:.9rem;align-items:center;padding:1rem 0;border-bottom:1px solid var(--line)}
-.tm{font:800 1.75rem/1 var(--display);font-variant-numeric:tabular-nums}
-.tm small{display:block;font:500 .75rem var(--body);color:var(--mu);margin-top:.3rem}
-.rows .nm{display:block}
+.rows{margin-top:.75rem}
+.rows li{display:grid;grid-template-columns:4.6rem 1fr auto;gap:1rem;align-items:center;padding:1.1rem 0;border-bottom:1px solid var(--line)}
+.tm{font:var(--hw) 1.625rem/1 var(--display);font-variant-numeric:tabular-nums}
+.tm small{display:block;font:500 .75rem var(--body);color:var(--mu);margin-top:.35rem}
+.rows .nm{display:block;line-height:1.3}
 .rows .sub{color:var(--mu);font-size:.875rem}
-.rows .btn{padding:.6rem 1rem;min-height:2.6rem}
-.rows .btn[disabled]{background:transparent;color:var(--mu);border:1.5px solid var(--line);cursor:default}
+.rows .btn{padding:.55rem 1.1rem;min-height:2.75rem}
+.rows .btn[disabled]{background:transparent;color:var(--mu);border:1px solid var(--line);cursor:default;filter:none}
 .empty{color:var(--mu);padding:1.5rem 0}
-.svc{display:grid;grid-template-columns:1fr auto;gap:.2rem 1rem;width:100%;text-align:start;background:var(--sf);border:1.5px solid var(--line);border-radius:var(--r);padding:.95rem 1.1rem;margin-bottom:.6rem;cursor:pointer}
+.svc{display:grid;grid-template-columns:1fr auto;gap:.15rem 1rem;width:100%;text-align:start;background:var(--sf);border:1px solid var(--line);border-radius:var(--r);padding:1rem 1.15rem;margin-bottom:.6rem;cursor:pointer;transition:border-color .15s}
+.svc:hover{border-color:color-mix(in srgb,var(--ink) 40%,transparent)}
 .svc .sub{grid-column:1/-1;color:var(--mu);font-size:.875rem}
-.svc[aria-pressed=true]{border-color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
-.svc[aria-pressed=true] .nm::before{content:"\2713\00a0"}
+.svc[aria-pressed=true]{border-color:var(--ac);box-shadow:inset 0 0 0 1px var(--ac)}
+.svc[aria-pressed=true] .nm::before{content:"\2713\00a0";color:var(--ac)}
 .bar{position:fixed;inset-inline:0;bottom:0;z-index:9;background:var(--sf);border-top:1px solid var(--line);padding:.7rem 1.25rem calc(.7rem + env(safe-area-inset-bottom));display:flex;gap:1rem;align-items:center;justify-content:space-between}
 .bar .sum{font-size:.9375rem;line-height:1.3}
-.bar .sum b{display:block;font-size:1.0625rem}
+.bar .sum b{display:block;font-size:1.0625rem;font-weight:600}
 .bar .btn{flex:none}
-.pitch{margin-top:3.5rem;padding:2rem 0;border-top:1px solid var(--line)}
-.pitch p{max-width:46ch;margin:0}
-footer{padding:1.5rem 0 1rem;color:var(--mu);font-size:.875rem}
-dialog{border:0;padding:0;background:var(--sf);color:var(--ink);border-radius:20px 20px 0 0;width:100%;max-width:30rem;margin:auto auto 0}
+.pitch{margin-top:4rem;padding-top:2.25rem;border-top:1px solid var(--line)}
+.pitch h2{font-size:1.4rem}
+.pitch p{max-width:48ch;margin:0;color:var(--mu)}
+footer{padding:1.75rem 0 1.5rem;color:var(--mu);font-size:.875rem}
+dialog{border:0;padding:0;background:var(--sf);color:var(--ink);border-radius:calc(var(--r) + 6px) calc(var(--r) + 6px) 0 0;width:100%;max-width:30rem;margin:auto auto 0}
 dialog::backdrop{background:rgba(0,0,0,.55)}
 dialog form{padding:1.5rem 1.25rem calc(1.5rem + env(safe-area-inset-bottom))}
 dialog h2{margin-bottom:.25rem}
-@media (min-width:40rem){dialog{border-radius:20px;margin:auto}.hero{padding:5rem 0 3.5rem}}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+[dir=rtl] body,[dir=rtl] .btn,[dir=rtl] .tm small{font-family:"Tajawal",system-ui,sans-serif}
+[dir=rtl] h1,[dir=rtl] h2,[dir=rtl] .big,[dir=rtl] .tm,[dir=rtl] .step output{font-family:"Tajawal",system-ui,sans-serif;font-weight:700;font-style:normal;font-stretch:normal;letter-spacing:0;line-height:1.25}
+
+/* Gyms, boxing, martial arts, courts */
+.k-fight .hero{border-bottom:1px solid var(--line)}
+.k-fight h1{text-transform:uppercase;font-size:clamp(3.25rem,15vw,7.5rem);line-height:.9;letter-spacing:0;max-width:12ch}
+.k-fight h1::after,.k-trade h1::after{content:"";display:block;width:4.5rem;height:6px;background:var(--ac);margin-top:1.4rem}
+.k-fight h2{text-transform:uppercase;letter-spacing:.01em;font-size:clamp(1.75rem,6vw,2.4rem)}
+.k-fight .tm{font-size:2rem}
+.k-fight .btn{text-transform:uppercase;letter-spacing:.04em;font-weight:600}
+[dir=rtl] .k-fight h1{font-size:clamp(2.75rem,12vw,5.5rem)}
+
+/* Yoga, pilates, wellness */
+.k-calm .hero{text-align:center;position:relative;overflow:hidden;padding-block:4rem 3.5rem}
+.k-calm .hero::before{content:"";position:absolute;left:50%;top:50%;width:min(36rem,125vw);aspect-ratio:1;border-radius:50%;background:var(--hi);opacity:.6;transform:translate(-50%,-46%)}
+.k-calm .hero .wrap{position:relative}
+.k-calm h1{margin-inline:auto;letter-spacing:-.01em;line-height:1.08;font-size:clamp(2.4rem,9vw,4.5rem)}
+.k-calm .tag{margin-inline:auto;font-family:var(--display);font-style:italic;color:var(--ink)}
+.k-calm .loc,.k-calm .hrs{color:color-mix(in srgb,var(--ink) 80%,var(--hi))}
+.k-calm .cta{flex-direction:column}
+.k-calm h2{letter-spacing:0}
+
+/* Salons, spas */
+.k-beauty .hero{background:var(--hi);border-radius:0 0 2.5rem 2.5rem}
+.k-beauty h1{font-style:italic;line-height:1.1;letter-spacing:-.01em;padding-bottom:.12em;font-size:clamp(2.5rem,9.5vw,4.75rem)}
+.k-beauty .tag,.k-beauty .loc,.k-beauty .hrs{color:color-mix(in srgb,var(--ink) 82%,var(--hi))}
+.k-beauty h2{letter-spacing:0}
+
+/* Detailing, car care */
+.k-auto .hero{background:linear-gradient(112deg,transparent 0 56%,rgba(255,255,255,.04) 56% 65%,transparent 65% 69%,rgba(255,255,255,.025) 69% 72%,transparent 72%),var(--bg);border-bottom:1px solid var(--line)}
+.k-auto h1{font-stretch:125%;text-transform:uppercase;font-size:clamp(1.9rem,8vw,4.25rem);line-height:1.04;letter-spacing:0;max-width:15ch}
+.k-auto h2{font-stretch:112%;font-size:clamp(1.2rem,4.2vw,1.5rem);text-transform:uppercase;letter-spacing:.05em}
+.k-auto .loc{color:var(--ac);letter-spacing:.14em;text-transform:uppercase;font-size:.8125rem}
+.k-auto .pr{color:var(--ac)}
+.k-auto .btn{text-transform:uppercase;letter-spacing:.06em;font-size:.875rem}
+
+/* Cafes, restaurants, barbers */
+.k-cafe .hero{text-align:center}
+.k-cafe .hero .wrap{max-width:46rem}
+.k-cafe h1{margin-inline:auto;max-width:none;font-size:clamp(2rem,8.2vw,3.6rem);line-height:1.12;letter-spacing:.01em;padding-block:1.25rem;border-block:3px double var(--ink)}
+.k-cafe .tag{margin-inline:auto;font-style:italic}
+.k-cafe .cta{justify-content:center}
+.k-cafe h2{letter-spacing:.02em}
+.k-cafe .nm{font-weight:500}
+
+/* Physio, clinics */
+.k-clinic .hero{background:var(--sf);border-bottom:1px solid var(--line)}
+.k-clinic h1{font-size:clamp(2.1rem,7.5vw,3.75rem);line-height:1.06;max-width:18ch}
+.k-clinic .loc{display:inline-block;background:var(--hi);color:var(--ink);padding:.3rem .85rem;border-radius:99px;font-size:.875rem}
+
+/* Kids, dance, music, arts */
+.k-play .hero{background:var(--ac);color:var(--on);border-radius:0 0 2.25rem 2.25rem;position:relative;overflow:hidden;padding-top:3.5rem}
+.k-play .hero::before{content:"";position:absolute;inset-inline-end:-3rem;top:-3rem;width:8rem;aspect-ratio:1;border-radius:50%;background:var(--hi)}
+.k-play .hero .wrap{position:relative}
+.k-play h1{line-height:1.02;letter-spacing:-.01em}
+.k-play .tag,.k-play .loc,.k-play .hrs,.k-play .hrs b{color:inherit}
+.k-play .hero .btn{background:var(--hi);color:var(--ink)}
+.k-play .hero :focus-visible,.k-trade .hero :focus-visible{outline-color:#fff}
+.k-play .rows li{background:var(--sf);border:1px solid var(--line);border-radius:var(--r);padding:1rem 1.1rem;margin-bottom:.6rem}
+.k-play .tm{color:var(--ac)}
+
+/* Repairs, home services, training centres */
+.k-trade .hero{background:var(--ink);color:#fff}
+.k-trade h1{font-size:clamp(2.25rem,8.5vw,4.25rem);line-height:1.04}
+.k-trade h1::after{width:3.5rem;height:5px;background:var(--hi);border-radius:3px;margin-top:1.25rem}
+.k-trade .tag,.k-trade .loc,.k-trade .hrs{color:#C9D3E8}
+.k-trade .hrs b{color:#fff}
+.k-trade .hero .btn{background:#fff;color:var(--ink)}
+
+@media (min-width:48rem){
+ .wrap{padding-inline:2.5rem}
+ .hero{padding:5rem 0 4.5rem}
+ .k-calm .hero{padding-block:6rem 5.5rem}
+ .k-play .hero::before{width:15rem;inset-inline-end:-4rem;top:-5rem}
+ dialog{border-radius:calc(var(--r) + 6px);margin:auto}
+ .card{padding:1.75rem}
+}
+@media (min-width:62rem){
+ .cols{grid-template-columns:minmax(0,1.2fr) minmax(0,.9fr);align-items:start}
+ .one>.main{max-width:46rem}
+ .t-classes .side{position:sticky;top:1.5rem}
+ .t-menu .main{display:grid;grid-template-columns:1fr 1fr;gap:0 3rem;align-items:start}
+ .t-menu .main>.note,.t-menu .main>.full{grid-column:1/-1}
+ .t-menu .cols{grid-template-columns:minmax(0,1.5fr) minmax(0,.9fr)}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn,.chip,.svc{transition:none}}
 </style>
 </head>
 <body>
@@ -103,20 +199,9 @@ dialog h2{margin-bottom:.25rem}
 var qs=new URLSearchParams(location.search), slug=(window.SLUG||qs.get('b')||'').toLowerCase();
 var L=(window.LEADS||{})[slug], lang=qs.get('lang')==='ar'?'ar':'en';
 var app=document.getElementById('app');
-var TH={
- souk:{bg:'#FBF3E4',sf:'#FFFBF2',ink:'#1F2A44',mu:'#5E6578',ac:'#0E7C66',on:'#FFFFFF',hi:'#E9A820',f:'Gloock'},
- milk:{bg:'#F2F5F7',sf:'#FFFFFF',ink:'#2A1E17',mu:'#6B5F58',ac:'#2F6FDB',on:'#FFFFFF',hi:'#F2C6A0',f:'Bricolage Grotesque'},
- petrol:{bg:'#0F2A33',sf:'#173A45',ink:'#F1EFE7',mu:'#A9BDC2',ac:'#FF7A3D',on:'#1A0E06',hi:'#F3E3B3',f:'Big Shoulders Display'},
- sage:{bg:'#EEF1EA',sf:'#FFFFFF',ink:'#23302B',mu:'#5F6B65',ac:'#6B4FA0',on:'#FFFFFF',hi:'#D9C9F2',f:'Marcellus'},
- pole:{bg:'#F4F4F1',sf:'#FFFFFF',ink:'#151515',mu:'#5D5D5D',ac:'#A3271F',on:'#FFFFFF',hi:'#1F3A5F',f:'Bricolage Grotesque'},
- blush:{bg:'#FBEFF1',sf:'#FFFFFF',ink:'#3A1F2B',mu:'#7A5E69',ac:'#B03A6B',on:'#FFFFFF',hi:'#F3C9A8',f:'Marcellus'},
- gloss:{bg:'#0B1F3A',sf:'#12305A',ink:'#EAF2FF',mu:'#9DB3D1',ac:'#35C2FF',on:'#04121F',hi:'#FFD23F',f:'Big Shoulders Display'},
- clinic:{bg:'#F1F7F8',sf:'#FFFFFF',ink:'#0F3540',mu:'#4F6C74',ac:'#087575',on:'#FFFFFF',hi:'#FFB86B',f:'Bricolage Grotesque'},
- chalk:{bg:'#F3F1E7',sf:'#FFFFFF',ink:'#1D2B53',mu:'#5A6384',ac:'#1F7A45',on:'#FFFFFF',hi:'#FFC83D',f:'Bricolage Grotesque'}
-};
 var T={en:{
  ribbon:'Concept preview for {n}. Made by Jad, not the official site.',other:'العربية',
- open:'Open',where:'Find us',
+ open:'Open',where:'Find us',ctaC:'See this week',ctaB:'Book a time',ctaM:'See the menu',
  mReal:'Items and prices come from your public menu. Change one here and every table sees it.',
  mSample:'Sample items. Your real menu goes in before launch.',
  tentH:'Your table card',scan:'Scan for the menu',tentP:'Print one per table. Guests scan it and this menu opens on their phone.',
@@ -135,7 +220,7 @@ var T={en:{
  foot:'Concept preview made for {n} by Jad.',missH:'Concept previews by Jad',missP:'This link needs a business name on the end. Open the full link from Jad’s message.'
 },ar:{
  ribbon:'نموذج تجريبي لـ {n}. من تصميم جاد، وليس الموقع الرسمي.',other:'English',
- open:'أوقات العمل',where:'الموقع',
+ open:'أوقات العمل',where:'الموقع',ctaC:'شاهد جدول الأسبوع',ctaB:'احجز موعداً',ctaM:'شاهد القائمة',
  mReal:'الأصناف والأسعار مأخوذة من قائمتكم المنشورة. أي تعديل هنا يظهر على كل الطاولات.',
  mSample:'أصناف تجريبية. تضاف قائمتكم الحقيقية قبل الإطلاق.',
  tentH:'بطاقة الطاولة',scan:'امسح الرمز لعرض القائمة',tentP:'اطبع بطاقة لكل طاولة. يمسح الضيف الرمز فتفتح القائمة على هاتفه.',
@@ -166,13 +251,14 @@ var store={get:function(k,d){try{var v=JSON.parse(localStorage.getItem('pv:'+slu
 var S={day:0,time:null,guests:2,svc:{},cls:null}, D=days();
 if(L&&L.t==='classes'){for(var di=0;di<7;di++){var wd0=D[di].getDay();if((L.classes||[]).some(function(c){return c.d.indexOf(wd0)>-1})){S.day=di;break}}}
 
+function plist(s){return '<ul class="menu">'+s.items.map(function(it){return '<li><div class="row"><span class="nm">'+esc(it.n)+'</span><span class="dots"></span><span class="pr">'+price(it.p)+'</span></div>'+(it.d?'<p class="ds">'+esc(it.d)+'</p>':'')+'</li>'}).join('')+'</ul>'}
 function head(){
- var name=esc(L.n);
+ var cta=L.t==='menu'?['ctaM','#s0']:L.t==='classes'?['ctaC','#week']:['ctaB','#svc'];
  return '<div class="ribbon"><span>'+tr('ribbon',{n:L.n})+'</span><button type="button" data-act="lang">'+tr('other')+'</button></div>'+
- '<header class="hero"><div class="wrap"><h1>'+name+'</h1>'+(L.tag?'<p>'+esc(L.tag)+'</p>':'')+'</div></header>'+
- '<div class="facts"><div class="wrap">'+(L.area?'<span><b>'+tr('where')+'</b> '+esc(L.area)+'</span>':'')+(L.hours?'<span><b>'+tr('open')+'</b> '+esc(L.hours)+'</span>':'')+'</div></div>';
+ '<header class="hero"><div class="wrap">'+(L.area?'<p class="loc">'+esc(L.area)+'</p>':'')+'<h1>'+esc(L.n)+'</h1>'+(L.tag?'<p class="tag">'+esc(L.tag)+'</p>':'')+
+ '<div class="cta"><a class="btn" href="'+cta[1]+'">'+tr(cta[0])+'</a>'+(L.hours?'<span class="hrs"><b>'+tr('open')+'</b> '+esc(L.hours)+'</span>':'')+'</div></div></header>';
 }
-function tail(){return '<section class="wrap pitch"><h2>'+tr('pitchH',{n:L.n})+'</h2><p>'+tr('pitchP')+'</p></section><footer class="wrap">'+tr('foot',{n:L.n})+'</footer>'}
+function tail(){return '<section class="wrap"><div class="pitch"><h2>'+tr('pitchH',{n:L.n})+'</h2><p>'+tr('pitchP')+'</p></div></section><footer class="wrap">'+tr('foot',{n:L.n})+'</footer>'}
 function dayChips(){return '<div class="chips days" role="group" aria-label="'+tr('day')+'">'+D.map(function(d,i){return '<button type="button" class="chip" data-act="day" data-i="'+i+'" aria-pressed="'+(i===S.day)+'">'+esc(f(d,{weekday:'short'}))+'<small>'+esc(f(d,{day:'numeric',month:'short'}))+'</small></button>'}).join('')+'</div>'}
 function timeChips(step,from){
  var o=Math.max(L.open||10,from||0),c=L.close||22,h='';
@@ -187,13 +273,11 @@ function ticket(k,big,line){return '<div class="ticket" role="status"><p class="
 function whenText(){return esc(f(D[S.day],{weekday:'long',day:'numeric',month:'long'}))+', '+esc(tf(S.time))}
 
 function menuView(){
- var secs=L.sections||[];
- var h=head();
+ var secs=L.sections||[],h=head();
  if(secs.length>1)h+='<nav class="cats"><div class="wrap">'+secs.map(function(s,i){return '<a href="#s'+i+'">'+esc(s.title)+'</a>'}).join('')+'<a href="#reserve">'+tr('resH')+'</a></div></nav>';
- h+=secs.map(function(s,i){return '<section class="wrap sec" id="s'+i+'"><h2>'+esc(s.title)+'</h2><ul class="menu">'+s.items.map(function(it){return '<li><div class="row"><span class="nm">'+esc(it.n)+'</span><span class="dots"></span><span class="pr">'+price(it.p)+'</span></div>'+(it.d?'<p class="ds">'+esc(it.d)+'</p>':'')+'</li>'}).join('')+'</ul></section>'}).join('');
- h+='<div class="wrap"><p class="note">'+tr(L.real?'mReal':'mSample')+'</p></div>';
- h+='<section class="wrap sec"><h2>'+tr('tentH')+'</h2><div class="tent"><div class="qr" id="qr"></div><div><p class="big">'+tr('scan')+'</p><p>'+tr('tentP')+'</p></div></div></section>';
- h+='<section class="wrap sec" id="reserve"><h2>'+tr('resH')+'</h2><div id="formBox">'+resForm()+'</div></section>';
+ h+='<main class="wrap cols"><div class="main">'+secs.map(function(s,i){return '<section class="sec" id="s'+i+'"><h2>'+esc(s.title)+'</h2>'+plist(s)+'</section>'}).join('')+'<p class="note">'+tr(L.real?'mReal':'mSample')+'</p>'+
+ '<section class="sec full"><h2>'+tr('tentH')+'</h2><div class="tent"><div class="qr" id="qr"></div><div><p class="big">'+tr('scan')+'</p><p>'+tr('tentP')+'</p></div></div></section></div>'+
+ '<section class="sec side" id="reserve"><h2>'+tr('resH')+'</h2><div id="formBox">'+resForm()+'</div></section></main>';
  h+=tail()+'<div class="bar"><div class="sum"><b>'+esc(L.n)+'</b>'+(L.hours?esc(L.hours):'')+'</div><a class="btn" href="#reserve">'+tr('resGo')+'</a></div>';
  return h;
 }
@@ -201,10 +285,10 @@ function resForm(){return '<form class="card" id="resF" novalidate><span class="
  '<span class="lbl">'+tr('guests')+'</span><div class="step"><button type="button" data-act="g-" aria-label="-">&minus;</button><output id="gN">'+S.guests+'</output><button type="button" data-act="g+" aria-label="+">+</button></div>'+fields(true)+'<button class="btn wide">'+tr('resBtn')+'</button></form>'}
 
 function classesView(){
- var h=head();
- h+='<section class="wrap sec"><h2>'+tr('clsH')+'</h2>'+dayChips()+'<ul class="rows" id="cls"></ul><p class="note">'+tr(L.real===true?'cReal':L.real==='names'?'cSample':'cNone')+'</p></section>';
- if(L.sections&&L.sections.length)h+=L.sections.map(function(s){return '<section class="wrap sec"><h2>'+esc(s.title)+'</h2><ul class="menu">'+s.items.map(function(it){return '<li><div class="row"><span class="nm">'+esc(it.n)+'</span><span class="dots"></span><span class="pr">'+price(it.p)+'</span></div>'+(it.d?'<p class="ds">'+esc(it.d)+'</p>':'')+'</li>'}).join('')+'</ul></section>'}).join('');
- h+=tail()+'<dialog id="sheet"><form id="spotF" novalidate><h2>'+tr('sheetH')+'</h2><p class="note" id="sheetSub" style="margin:0 0 1rem"></p>'+fields(false)+'<button class="btn wide">'+tr('spotBtn')+'</button><button type="button" class="btn ghost wide" data-act="close" style="margin-top:.6rem">'+tr('cancel')+'</button></form></dialog>';
+ var h=head(),secs=L.sections||[];
+ h+='<main class="wrap '+(secs.length?'cols':'one')+'"><section class="sec main" id="week"><h2>'+tr('clsH')+'</h2>'+dayChips()+'<ul class="rows" id="cls"></ul><p class="note">'+tr(L.real===true?'cReal':L.real==='names'?'cSample':'cNone')+'</p></section>';
+ if(secs.length)h+='<aside class="side">'+secs.map(function(s){return '<section class="panel"><h2>'+esc(s.title)+'</h2>'+plist(s)+'</section>'}).join('')+'</aside>';
+ h+='</main>'+tail()+'<dialog id="sheet"><form id="spotF" novalidate><h2>'+tr('sheetH')+'</h2><p class="note" id="sheetSub" style="margin:0 0 1rem"></p>'+fields(false)+'<button class="btn wide">'+tr('spotBtn')+'</button><button type="button" class="btn ghost wide" data-act="close" style="margin-top:.6rem">'+tr('cancel')+'</button></form></dialog>';
  return h;
 }
 function drawClasses(){
@@ -219,8 +303,8 @@ function drawClasses(){
 
 function bookView(){
  var h=head(),secs=L.sections||[],i=0;
- h+='<section class="wrap sec" id="svc"><h2>'+tr('svcH')+'</h2>'+secs.map(function(s){return (secs.length>1?'<p class="lbl">'+esc(s.title)+'</p>':'')+s.items.map(function(it){var k=i++;return '<button type="button" class="svc" data-act="svc" data-i="'+k+'" aria-pressed="'+!!S.svc[k]+'"><span class="nm">'+esc(it.n)+'</span><span class="pr">'+price(it.p)+'</span><span class="sub">'+(it.m?tr('mins',{m:it.m}):'')+(it.d?(it.m?', ':'')+esc(it.d):'')+'</span></button>'}).join('')}).join('')+'<p class="note">'+tr(L.real===true?'sReal':L.real==='names'?'sNames':'sSample')+'</p><p class="err" id="eS" role="alert"></p></section>';
- h+='<section class="wrap sec" id="when"><h2>'+tr('whenH')+'</h2><div id="formBox"><form class="card" id="bookF" novalidate>'+dayChips()+'<span class="lbl">'+tr('time')+'</span><div class="chips" id="times">'+timeChips(45,0)+'</div><p class="note">'+tr('avail')+'</p><p class="err" id="eT" role="alert"></p><p class="lbl">'+tr('detH')+'</p>'+fields(true)+'<button class="btn wide">'+tr('bookBtn')+'</button></form></div></section>';
+ h+='<main class="wrap cols"><section class="sec main" id="svc"><h2>'+tr('svcH')+'</h2>'+secs.map(function(s){return (secs.length>1?'<p class="lbl">'+esc(s.title)+'</p>':'')+s.items.map(function(it){var k=i++;return '<button type="button" class="svc" data-act="svc" data-i="'+k+'" aria-pressed="'+!!S.svc[k]+'"><span class="nm">'+esc(it.n)+'</span><span class="pr">'+price(it.p)+'</span><span class="sub">'+(it.m?tr('mins',{m:it.m}):'')+(it.d?(it.m?', ':'')+esc(it.d):'')+'</span></button>'}).join('')}).join('')+'<p class="note">'+tr(L.real===true?'sReal':L.real==='names'?'sNames':'sSample')+'</p><p class="err" id="eS" role="alert"></p></section>';
+ h+='<section class="sec side" id="when"><h2>'+tr('whenH')+'</h2><div id="formBox"><form class="card" id="bookF" novalidate>'+dayChips()+'<span class="lbl">'+tr('time')+'</span><div class="chips" id="times">'+timeChips(45,0)+'</div><p class="note">'+tr('avail')+'</p><p class="err" id="eT" role="alert"></p><p class="lbl">'+tr('detH')+'</p>'+fields(true)+'<button class="btn wide">'+tr('bookBtn')+'</button></form></div></section></main>';
  h+=tail()+'<div class="bar"><div class="sum" id="sum"></div><a class="btn" href="#when">'+tr('barGo')+'</a></div>';
  return h;
 }
@@ -265,9 +349,28 @@ document.addEventListener('submit',function(e){
 });
 document.addEventListener('click',function(e){if(e.target.closest('[data-act="closeDone"]')){document.getElementById('sheet').close();render()}});
 
-if(L){var th=TH[L.th]||TH.pole,r=document.documentElement.style;r.setProperty('--bg',th.bg);r.setProperty('--sf',th.sf);r.setProperty('--ink',th.ink);r.setProperty('--mu',th.mu);r.setProperty('--ac',th.ac);r.setProperty('--on',th.on);r.setProperty('--hi',th.hi);r.setProperty('--display','"'+th.f+'",system-ui,sans-serif');document.body.className=L.th;
- var fl=document.createElement('link');fl.rel='stylesheet';fl.href='https://fonts.googleapis.com/css2?family='+th.f.replace(/ /g,'+')+':wght@'+(th.f==='Gloock'||th.f==='Marcellus'?'400':'700;800')+'&family=Hanken+Grotesk:wght@400;500;700&family=Tajawal:wght@400;500;700;800&display=swap';document.head.appendChild(fl);
- if(th.f==='Gloock'||th.f==='Marcellus'){var st=document.createElement('style');st.textContent='h1,h2,.big,.tm,.step output{font-weight:400!important}';document.head.appendChild(st)}}
+var KM={fight:'al-mass entropy-bjj round10 tk-mma no-limit sportsbay rock-republic ahdaaf sample-gym',
+ calm:'ancient-yoga equi-pilates roshiross cloud-pilates samudra keyani maya-blu hatha-vidya pratimoksha',
+ beauty:'aurora-beauty hearts-beauty pastels bodify',
+ auto:'04-car-wash amcc detailing-dynamics zain-car-care apex-detail arrogate go7 top-shield cars-studio royal-star qucars sample-detailing',
+ cafe:'sample-cafe pdl',clinic:'ojas-physio kuur physiolab brainnovation',
+ play:'smith-academy sargam vibes-arts dance-dazzle ocean-kids',
+ trade:'mr-fixer ecoplus fix-all-now sahara-fix spoton zillionpathways'};
+var K={
+ fight:{bg:'#15181D',sf:'#1E2329',ink:'#F4F2EC',mu:'#A3A9B3',ac:'#F97316',on:'#1A0E04',hi:'#F4F2EC',d:'Barlow Condensed',b:'Barlow',hw:700,r:'4px',rb:'4px',gf:'Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600'},
+ calm:{bg:'#EFF3EE',sf:'#FFFFFF',ink:'#1F2D27',mu:'#55645D',ac:'#2E5E4E',on:'#FFFFFF',hi:'#D3E2D6',d:'Lora',b:'Raleway',hw:500,r:'20px',rb:'999px',gf:'Lora:ital,wght@0,400;0,500;1,400&family=Raleway:wght@400;500;600'},
+ beauty:{bg:'#FCF5F6',sf:'#FFFFFF',ink:'#2C1A23',mu:'#75606B',ac:'#A8325E',on:'#FFFFFF',hi:'#F3D5DE',d:'Playfair Display',b:'DM Sans',hw:500,r:'18px',rb:'999px',gf:'Playfair+Display:ital,wght@0,500;1,500&family=DM+Sans:wght@400;500;600'},
+ auto:{bg:'#0D1013',sf:'#161B20',ink:'#EEF1F4',mu:'#98A2AD',ac:'#D8B25A',on:'#14100A',hi:'#EEF1F4',d:'Archivo',b:'Archivo',hw:700,r:'6px',rb:'6px',gf:'Archivo:wdth,wght@62..125,100..900'},
+ cafe:{bg:'#FBF6EC',sf:'#FFFDF8',ink:'#2A1D14',mu:'#6A5A4E',ac:'#92400E',on:'#FFFFFF',hi:'#E7D7BD',d:'Playfair Display SC',b:'Karla',hw:700,r:'4px',rb:'4px',gf:'Playfair+Display+SC:wght@400;700&family=Karla:ital,wght@0,400;0,500;0,700;1,400'},
+ clinic:{bg:'#F2F9F9',sf:'#FFFFFF',ink:'#0F2F36',mu:'#4A656B',ac:'#0E7490',on:'#FFFFFF',hi:'#CFECEC',d:'Figtree',b:'Figtree',hw:700,r:'14px',rb:'12px',gf:'Figtree:wght@400;500;600;700'},
+ play:{bg:'#F2F6FF',sf:'#FFFFFF',ink:'#172554',mu:'#535E88',ac:'#2563EB',on:'#FFFFFF',hi:'#FBBF24',d:'Baloo 2',b:'Nunito',hw:800,r:'22px',rb:'999px',gf:'Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700'},
+ trade:{bg:'#F3F5F9',sf:'#FFFFFF',ink:'#0F1E3D',mu:'#56617A',ac:'#1E40AF',on:'#FFFFFF',hi:'#EA580C',d:'Work Sans',b:'Work Sans',hw:700,r:'10px',rb:'10px',gf:'Work+Sans:wght@400;500;600;700'}
+};
+if(L){var kind=L.t==='menu'?'cafe':L.t==='classes'?'fight':'trade';Object.keys(KM).forEach(function(x){if((' '+KM[x]+' ').indexOf(' '+slug+' ')>-1)kind=x});
+ var k=K[kind],r=document.documentElement.style;['bg','sf','ink','mu','ac','on','hi'].forEach(function(x){r.setProperty('--'+x,k[x])});
+ r.setProperty('--display','"'+k.d+'",system-ui,sans-serif');r.setProperty('--body','"'+k.b+'",system-ui,sans-serif');r.setProperty('--hw',k.hw);r.setProperty('--r',k.r);r.setProperty('--rb',k.rb);
+ document.body.className='k-'+kind+' t-'+L.t;
+ var fl=document.createElement('link');fl.rel='stylesheet';fl.href='https://fonts.googleapis.com/css2?family='+k.gf+'&family=Tajawal:wght@400;500;700&display=swap';document.head.appendChild(fl)}
 render();
 })();
 </script>
