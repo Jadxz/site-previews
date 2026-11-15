@@ -77,7 +77,7 @@ h2{font:var(--hw) clamp(1.5rem,5vw,2rem)/1.12 var(--display);letter-spacing:-.01
 .ticket p{margin:.2rem 0}
 .ticket .live{margin:1rem 0 1.1rem;padding-top:1rem;border-top:1px dashed var(--line);color:var(--mu);font-size:.9375rem}
 .rows{margin-top:.75rem}
-.rows li{display:grid;grid-template-columns:4.6rem 1fr auto;gap:1rem;align-items:center;padding:1.1rem 0;border-bottom:1px solid var(--line)}
+.rows li{display:grid;grid-template-columns:minmax(4.6rem,auto) 1fr auto;gap:1rem;align-items:center;padding:1.1rem 0;border-bottom:1px solid var(--line)}
 .tm{font:var(--hw) 1.625rem/1 var(--display);font-variant-numeric:tabular-nums}
 .tm small{display:block;font:500 .75rem var(--body);color:var(--mu);margin-top:.35rem}
 .rows .nm{display:block;line-height:1.3}
@@ -97,6 +97,7 @@ h2{font:var(--hw) clamp(1.5rem,5vw,2rem)/1.12 var(--display);letter-spacing:-.01
 .pitch{margin-top:4rem;padding-top:2.25rem;border-top:1px solid var(--line)}
 .pitch h2{font-size:1.4rem}
 .pitch p{max-width:48ch;margin:0;color:var(--mu)}
+.pitch a{color:var(--ac);text-underline-offset:.25em}
 footer{padding:1.75rem 0 1.5rem;color:var(--mu);font-size:.875rem}
 dialog{border:0;padding:0;background:var(--sf);color:var(--ink);border-radius:calc(var(--r) + 6px) calc(var(--r) + 6px) 0 0;width:100%;max-width:30rem;margin:auto auto 0}
 dialog::backdrop{background:rgba(0,0,0,.55)}
@@ -201,7 +202,7 @@ var L=(window.LEADS||{})[slug], lang=qs.get('lang')==='ar'?'ar':'en';
 var app=document.getElementById('app');
 var T={en:{
  ribbon:'Concept preview for {n}. Made by Jad, not the official site.',other:'العربية',
- open:'Open',where:'Find us',ctaC:'See this week',ctaB:'Book a time',ctaM:'See the menu',
+ open:'Open',where:'Find us',sRibbon:'Sample page by Jad. This business is made up.',sPitchH:'Want one like this for your business?',sPitchP:'Jad builds and hosts it with your real details, in English and Arabic. Email <a href="mailto:hello@jadwritesco.com">hello@jadwritesco.com</a>.',sFoot:'Sample page made by Jad.',ctaC:'See this week',ctaB:'Book a time',ctaM:'See the menu',
  mReal:'Items and prices come from your public menu. Change one here and every table sees it.',
  mSample:'Sample items. Your real menu goes in before launch.',
  tentH:'Your table card',scan:'Scan for the menu',tentP:'Print one per table. Guests scan it and this menu opens on their phone.',
@@ -220,7 +221,7 @@ var T={en:{
  foot:'Concept preview made for {n} by Jad.',missH:'Concept previews by Jad',missP:'This link needs a business name on the end. Open the full link from Jad’s message.'
 },ar:{
  ribbon:'نموذج تجريبي لـ {n}. من تصميم جاد، وليس الموقع الرسمي.',other:'English',
- open:'أوقات العمل',where:'الموقع',ctaC:'شاهد جدول الأسبوع',ctaB:'احجز موعداً',ctaM:'شاهد القائمة',
+ open:'أوقات العمل',where:'الموقع',sRibbon:'صفحة نموذجية من جاد. هذا النشاط غير حقيقي.',sPitchH:'تريدون صفحة مثلها لنشاطكم؟',sPitchP:'جاد يبنيها ويستضيفها ببياناتكم الحقيقية، بالعربية والإنجليزية. راسلوه على <a href="mailto:hello@jadwritesco.com">hello@jadwritesco.com</a>.',sFoot:'صفحة نموذجية من تصميم جاد.',ctaC:'شاهد جدول الأسبوع',ctaB:'احجز موعداً',ctaM:'شاهد القائمة',
  mReal:'الأصناف والأسعار مأخوذة من قائمتكم المنشورة. أي تعديل هنا يظهر على كل الطاولات.',
  mSample:'أصناف تجريبية. تضاف قائمتكم الحقيقية قبل الإطلاق.',
  tentH:'بطاقة الطاولة',scan:'امسح الرمز لعرض القائمة',tentP:'اطبع بطاقة لكل طاولة. يمسح الضيف الرمز فتفتح القائمة على هاتفه.',
@@ -249,16 +250,18 @@ function price(p){if(p==null||p==='')return '';return typeof p==='number'?'AED '
 function iso(d){return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()}
 var store={get:function(k,d){try{var v=JSON.parse(localStorage.getItem('pv:'+slug+':'+k));return v==null?d:v}catch(e){return d}},set:function(k,v){try{localStorage.setItem('pv:'+slug+':'+k,JSON.stringify(v))}catch(e){}}};
 var S={day:0,time:null,guests:2,svc:{},cls:null}, D=days();
+if(L&&L.t!=='classes'){var n0=new Date();if(n0.getHours()*60+n0.getMinutes()+30>(L.close||22)*60-(L.t==='menu'?30:45))S.day=1}
 if(L&&L.t==='classes'){for(var di=0;di<7;di++){var wd0=D[di].getDay();if((L.classes||[]).some(function(c){return c.d.indexOf(wd0)>-1})){S.day=di;break}}}
 
 function plist(s){return '<ul class="menu">'+s.items.map(function(it){return '<li><div class="row"><span class="nm">'+esc(it.n)+'</span><span class="dots"></span><span class="pr">'+price(it.p)+'</span></div>'+(it.d?'<p class="ds">'+esc(it.d)+'</p>':'')+'</li>'}).join('')+'</ul>'}
 function head(){
  var cta=L.t==='menu'?['ctaM','#s0']:L.t==='classes'?['ctaC','#week']:['ctaB','#svc'];
- return '<div class="ribbon"><span>'+tr('ribbon',{n:L.n})+'</span><button type="button" data-act="lang">'+tr('other')+'</button></div>'+
+ return '<div class="ribbon"><span>'+tr(SMP?'sRibbon':'ribbon',{n:L.n})+'</span><button type="button" data-act="lang">'+tr('other')+'</button></div>'+
  '<header class="hero"><div class="wrap">'+(L.area?'<p class="loc">'+esc(L.area)+'</p>':'')+'<h1>'+esc(L.n)+'</h1>'+(L.tag?'<p class="tag">'+esc(L.tag)+'</p>':'')+
  '<div class="cta"><a class="btn" href="'+cta[1]+'">'+tr(cta[0])+'</a>'+(L.hours?'<span class="hrs"><b>'+tr('open')+'</b> '+esc(L.hours)+'</span>':'')+'</div></div></header>';
 }
-function tail(){return '<section class="wrap"><div class="pitch"><h2>'+tr('pitchH',{n:L.n})+'</h2><p>'+tr('pitchP')+'</p></div></section><footer class="wrap">'+tr('foot',{n:L.n})+'</footer>'}
+var SMP=slug.indexOf('sample-')===0;
+function tail(){return '<section class="wrap"><div class="pitch"><h2>'+tr(SMP?'sPitchH':'pitchH',{n:L.n})+'</h2><p>'+tr(SMP?'sPitchP':'pitchP')+'</p></div></section><footer class="wrap">'+tr(SMP?'sFoot':'foot',{n:L.n})+'</footer>'}
 function dayChips(){return '<div class="chips days" role="group" aria-label="'+tr('day')+'">'+D.map(function(d,i){return '<button type="button" class="chip" data-act="day" data-i="'+i+'" aria-pressed="'+(i===S.day)+'">'+esc(f(d,{weekday:'short'}))+'<small>'+esc(f(d,{day:'numeric',month:'short'}))+'</small></button>'}).join('')+'</div>'}
 function timeChips(step,from){
  var o=Math.max(L.open||10,from||0),c=L.close||22,h='';
@@ -341,9 +344,9 @@ document.addEventListener('click',function(e){
 });
 document.addEventListener('submit',function(e){
  e.preventDefault();var id=e.target.id,box=document.getElementById('formBox');
- if(id==='resF'){var ok=checkPerson();if(!S.time){setErr('eT',tr('eTime'));ok=false}if(!ok)return;box.innerHTML=ticket(tr('doneTable'),tr('tableFor',{g:S.guests}),whenText());box.scrollIntoView({block:'center'})}
+ if(id==='resF'){var ok=checkPerson();if(!S.time){setErr('eT',tr('eTime'));ok=false}if(!ok)return;box.innerHTML=ticket(tr('doneTable'),tr('tableFor',{g:S.guests}),whenText());var br=document.querySelector('.bar');if(br)br.style.display='none';box.scrollIntoView({block:'center'})}
  else if(id==='bookF'){var ok2=checkPerson();if(!S.time){setErr('eT',tr('eTime'));ok2=false}if(!picked().length){setErr('eS',tr('eSvc'));document.getElementById('svc').scrollIntoView();return}if(!ok2)return;
-  box.innerHTML=ticket(tr('doneBook'),picked().map(function(x){return esc(x.n)}).join(' + '),whenText());box.scrollIntoView({block:'center'})}
+  box.innerHTML=ticket(tr('doneBook'),picked().map(function(x){return esc(x.n)}).join(' + '),whenText());var br=document.querySelector('.bar');if(br)br.style.display='none';box.scrollIntoView({block:'center'})}
  else if(id==='spotF'){if(!checkPerson())return;var bk=store.get('bk',{});bk[S.cls.k]=1;store.set('bk',bk);var dlg=document.getElementById('sheet');
   dlg.innerHTML='<div style="padding:1.25rem">'+ticket(tr('doneSpot'),esc(S.cls.n),esc(f(D[S.day],{weekday:'long',day:'numeric',month:'long'}))+', '+esc(tf(S.cls.t))).replace('data-act="again"','data-act="closeDone"')+'</div>';drawClasses()}
 });
