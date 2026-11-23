@@ -236,7 +236,8 @@ function times(){
     const past=S.day===0&&t<=now.getHours()*60+now.getMinutes()+30;
     const busy=seeded(S.day*97+t+JSON.stringify(S.staff).length*13)<.28;
     out.push(`<button class="tm" aria-pressed="${S.time===hh}" data-t="${hh}" ${past||busy?"disabled":""}>${hh}</button>`)}
-  $("times").innerHTML=out.join("")||'<p class="hint">No time left today for this booking. Try tomorrow.</p>'
+  if(S.day===0&&!out.some(x=>!x.includes("disabled"))){S.day=1;days();return times()}
+  $("times").innerHTML=out.join("")||'<p class="hint">No time left that day for this booking. Try another day.</p>'
 }
 function summary(){
   const t=tot(),d=new Date();d.setDate(d.getDate()+S.day);
