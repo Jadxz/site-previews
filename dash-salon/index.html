@@ -41,6 +41,7 @@ h2{font-size:1.3rem;letter-spacing:-.02em;margin:0 0 4px}
 .tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin:0 -18px 14px;padding-left:18px;padding-right:18px;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
 .tab{flex:none;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:9px 16px;font-weight:600;font-size:.92rem}
+.cnt{display:inline-grid;place-items:center;min-width:20px;height:20px;border-radius:10px;background:var(--ac);color:#fff;font-size:.72rem;margin-left:4px}
 .tab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
 
 /* services */
@@ -55,7 +56,7 @@ h2{font-size:1.3rem;letter-spacing:-.02em;margin:0 0 4px}
 .svc[aria-pressed="true"] .chk svg{opacity:1}
 
 /* staff */
-.staff{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.grp{margin-bottom:18px}.gl{font-weight:700;font-size:.95rem;margin-bottom:8px}.staffrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.st{padding:12px!important}.st .av{width:36px!important;height:36px!important;font-size:.85rem}
 .st{background:var(--card);border:1.5px solid var(--line);border-radius:var(--r);padding:16px;text-align:left}
 .st .av{width:44px;height:44px;border-radius:50%;background:var(--ac-soft);color:var(--ac);display:grid;place-items:center;font-weight:800;margin-bottom:10px}
 .st .n{font-weight:700}
@@ -104,7 +105,7 @@ input:focus,textarea:focus{outline:none;border-color:var(--ac)}
 .note{font-size:.82rem;color:var(--mu);background:#FFF7E6;border:1px solid #F3E2B8;border-radius:12px;padding:10px 12px;margin-bottom:16px}
 footer{color:var(--mu);font-size:.8rem;text-align:center;padding:28px 0 0}
 [hidden]{display:none!important}
-@media (min-width:640px){.staff{grid-template-columns:repeat(3,1fr)}.times{grid-template-columns:repeat(6,1fr)}}
+@media (min-width:640px){.times{grid-template-columns:repeat(6,1fr)}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -119,7 +120,7 @@ footer{color:var(--mu);font-size:.8rem;text-align:center;padding:28px 0 0}
     </div>
   </header>
 
-  <div class="note">Preview: prices, durations and team names below are samples. DASH's real ones go in before this goes live.</div>
+  <div class="note">Preview: prices, durations and team names are samples. DASH's real ones go in before this goes live.</div>
 
   <div class="steps" aria-hidden="true"><div class="on"></div><div></div><div></div><div></div></div>
 
@@ -135,7 +136,7 @@ footer{color:var(--mu);font-size:.8rem;text-align:center;padding:28px 0 0}
   <section id="s2" hidden>
     <button class="back" data-go="1">← Services</button>
     <h2>Who would you like?</h2>
-    <p class="hint">Choose a specialist or let us pick whoever is free first.</p>
+    <p class="hint">Pick a specialist for each service, or leave it on anyone free.</p>
     <div class="staff" id="staff"></div>
   </section>
 
@@ -193,32 +194,33 @@ const MENU={
   Massage:[["Relaxing massage, 60 min",60,250],["Deep tissue, 60 min",60,300],["Moroccan bath",60,220],["Foot reflexology, 30 min",30,120]],
   Facial:[["Express facial",30,150],["Deep cleansing facial",60,280],["Hydrating facial",60,320],["Eyebrow threading",15,30],["Full face threading",30,70]]
 };
-const STAFF=[
-  {n:"Any specialist",d:"First one free",k:"*",i:"✦"},
-  {n:"Sample stylist",d:"Hair and colour",k:"Hair",i:"H"},
-  {n:"Sample nail tech",d:"Nails",k:"Nails",i:"N"},
-  {n:"Sample lash artist",d:"Lashes and brows",k:"Lashes Facial",i:"L"},
-  {n:"Sample therapist",d:"Massage and facials",k:"Massage Facial",i:"T"},
-];
+const STAFF={
+  Hair:[["Stylist 1","Cuts and blow dry"],["Stylist 2","Colour and balayage"]],
+  Nails:[["Nail tech 1","Gel and nail art"],["Nail tech 2","Manicure and pedicure"]],
+  Lashes:[["Lash artist 1","Volume and hybrid"],["Lash artist 2","Classic and lifts"]],
+  Massage:[["Therapist 1","Deep tissue"],["Therapist 2","Relaxing and bath"]],
+  Facial:[["Therapist 1","Facials"],["Beautician 1","Threading"]]
+};
 const OPEN=10,CLOSE=22;
-const S={cat:"Hair",pick:new Map(),staff:null,day:0,time:null,step:1};
+const S={cat:"Hair",pick:new Map(),staff:{},day:0,time:null,step:1};
 const $=id=>document.getElementById(id);
 const aed=n=>typeof n==="number"?"AED "+n:"AED "+n.replace("from ","from ");
 const num=p=>typeof p==="number"?p:parseInt(String(p).replace(/\D/g,""))||0;
 const fmtMin=m=>m<60?m+" min":Math.floor(m/60)+" h"+(m%60?" "+m%60+" min":"");
 const tot=()=>{let p=0,m=0,from=false;S.pick.forEach(v=>{p+=num(v[2]);m+=v[1];if(typeof v[2]!=="number")from=true});return{p,m,from}};
 
-function tabs(){$("tabs").innerHTML=Object.keys(MENU).map(c=>`<button class="tab" role="tab" aria-selected="${c===S.cat}" data-c="${c}">${c}</button>`).join("")}
+function tabs(){$("tabs").innerHTML=Object.keys(MENU).map(c=>{const k=[...S.pick.keys()].filter(x=>x.replace(/\d+$/,"")===c).length;return `<button class="tab" role="tab" aria-selected="${c===S.cat}" data-c="${c}">${c}${k?` <span class="cnt">${k}</span>`:""}</button>`}).join("")}
 function list(){
   $("list").innerHTML=MENU[S.cat].map((s,i)=>{const k=S.cat+i,on=S.pick.has(k);
     return `<button class="svc" aria-pressed="${on}" data-k="${k}"><span class="chk"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span><div class="n">${s[0]}</div><div class="d">${fmtMin(s[1])}</div></span><span class="p">${aed(s[2])}</span></button>`}).join("")
 }
 function cats(){return new Set([...S.pick.keys()].map(k=>k.replace(/\d+$/,"")))}
 function staff(){
-  const need=cats();
-  $("staff").innerHTML=STAFF.map((s,i)=>{const ok=s.k==="*"||[...need].every(c=>s.k.includes(c));
-    return `<button class="st" aria-pressed="${S.staff===i}" data-s="${i}" ${ok?"":"disabled"}><div class="av">${s.i}</div><div class="n">${s.n}</div><div class="d">${ok?s.d:"Doesn't do all your services"}</div></button>`}).join("")
+  $("staff").innerHTML=[...cats()].map(c=>{const cur=S.staff[c]??"any";
+    const opts=[["any","Anyone free","First available"],...STAFF[c].map((x,i)=>[String(i),x[0],x[1]])];
+    return `<div class="grp"><div class="gl">${c}</div><div class="staffrow">`+opts.map(o=>`<button class="st" aria-pressed="${cur===o[0]}" data-s="${c}|${o[0]}"><div class="av">${o[0]==="any"?"✦":o[1].split(" ").map(w=>w[0]).join("")}</div><div class="n">${o[1]}</div><div class="d">${o[2]}</div></button>`).join("")+`</div></div>`}).join("")
 }
+const who=()=>[...cats()].map(c=>{const v=S.staff[c]??"any";return [c,v==="any"?"Anyone free":STAFF[c][+v][0]]});
 function days(){
   const out=[],now=new Date();
   for(let i=0;i<14;i++){const d=new Date(now);d.setDate(now.getDate()+i);
@@ -232,7 +234,7 @@ function times(){
   for(let t=OPEN*60;t+m<=CLOSE*60;t+=30){
     const hh=String(Math.floor(t/60)).padStart(2,"0")+":"+String(t%60).padStart(2,"0");
     const past=S.day===0&&t<=now.getHours()*60+now.getMinutes()+30;
-    const busy=seeded(S.day*97+t+(S.staff||0)*13)<.28;
+    const busy=seeded(S.day*97+t+JSON.stringify(S.staff).length*13)<.28;
     out.push(`<button class="tm" aria-pressed="${S.time===hh}" data-t="${hh}" ${past||busy?"disabled":""}>${hh}</button>`)}
   $("times").innerHTML=out.join("")||'<p class="hint">No time left today for this booking. Try tomorrow.</p>'
 }
@@ -240,7 +242,7 @@ function summary(){
   const t=tot(),d=new Date();d.setDate(d.getDate()+S.day);
   const rows=[...S.pick.values()].map(v=>`<div class="row"><span>${v[0]}</span><span>${aed(v[2])}</span></div>`).join("");
   $("sum").innerHTML=rows+
-   `<div class="row"><span>Specialist</span><span>${STAFF[S.staff].n}</span></div>`+
+   who().map(w=>`<div class="row"><span>${w[0]} with</span><span>${w[1]}</span></div>`).join("")+
    `<div class="row"><span>When</span><span>${d.toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short"})}, ${S.time}</span></div>`+
    `<div class="row"><span>Duration</span><span>${fmtMin(t.m)}</span></div>`+
    `<div class="row tot"><span>Total</span><span>${t.from?"from ":""}AED ${t.p}</span></div>`
@@ -251,7 +253,7 @@ function bar(){
   $("bSub").textContent=n?`${n} service${n>1?"s":""} · ${fmtMin(t.m)}`:"Pick a service to start";
   const lbl={1:"Continue",2:"Choose time",3:"Review",4:"Confirm booking"}[S.step];
   btn.textContent=lbl;
-  btn.disabled=(S.step===1&&!n)||(S.step===2&&S.staff===null)||(S.step===3&&!S.time);
+  btn.disabled=(S.step===1&&!n)||(S.step===3&&!S.time);
   $("bar").hidden=S.step===5;
 }
 function go(n){
@@ -264,8 +266,8 @@ function go(n){
 document.addEventListener("click",e=>{
   const b=e.target.closest("button");if(!b)return;
   if(b.dataset.c){S.cat=b.dataset.c;tabs();list()}
-  else if(b.dataset.k){const k=b.dataset.k,i=+k.match(/\d+$/)[0];S.pick.has(k)?S.pick.delete(k):S.pick.set(k,MENU[S.cat][i]);S.staff=null;S.time=null;list();bar()}
-  else if(b.dataset.s){S.staff=+b.dataset.s;S.time=null;staff();bar()}
+  else if(b.dataset.k){const k=b.dataset.k,i=+k.match(/\d+$/)[0];S.pick.has(k)?S.pick.delete(k):S.pick.set(k,MENU[S.cat][i]);S.time=null;tabs();list();bar()}
+  else if(b.dataset.s){const [c,v]=b.dataset.s.split("|");S.staff[c]=v;S.time=null;staff();bar()}
   else if(b.dataset.d){S.day=+b.dataset.d;S.time=null;days();times();bar()}
   else if(b.dataset.t){S.time=b.dataset.t;times();bar()}
   else if(b.dataset.go){go(+b.dataset.go)}
@@ -277,10 +279,10 @@ $("next").onclick=()=>{
   $("err").style.display="none";
   const d=new Date();d.setDate(d.getDate()+S.day);
   $("doneT").textContent="Thanks "+nm.split(" ")[0]+", you're booked";
-  $("doneD").textContent=`${S.pick.size} service${S.pick.size>1?"s":""} with ${STAFF[S.staff].n.toLowerCase()} on ${d.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"})} at ${S.time}.`;
+  $("doneD").textContent=`${S.pick.size} service${S.pick.size>1?"s":""} on ${d.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"})} at ${S.time}.`;
   go(5);
 };
-$("again").onclick=()=>{S.pick.clear();S.staff=null;S.time=null;S.day=0;list();go(1)};
+$("again").onclick=()=>{S.pick.clear();S.staff={};S.time=null;S.day=0;list();go(1)};
 tabs();list();bar();
 </script>
 </body>
